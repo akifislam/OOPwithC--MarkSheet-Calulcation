@@ -15,7 +15,7 @@ public:
     }
 
     // Subject Name, Quiz Calculation
-    void subject_info() {
+    double subject_info() {
         printf("Enter Subject Name :");
         cin >> subject_name;
 
@@ -32,6 +32,7 @@ public:
             final_marks += quiz_mark;
         }
 //            print_marks();
+        return final_marks;
     }
 
     void print_marks() {
@@ -57,6 +58,7 @@ class Student {
 
     //Member
 private :
+    double Student_Total_Marks ;
     string student_name;
     int roll_number;
     double final_marks;
@@ -68,6 +70,7 @@ public :
     //Constructor
     Student() {
         //This funciton will take input of Student's Name and Roll Number Only
+        Student_Total_Marks = 0;
         user_basic_info();
     }
 
@@ -88,7 +91,7 @@ public:
 
 
         for (int i = 0; i < no_of_subject; i++) {
-            course[i].subject_info();
+            Student_Total_Marks+=course[i].subject_info();
         }
         printAll();
 
@@ -98,12 +101,13 @@ public:
     void printAll() {
         cout << "Student Name : " << student_name << endl;
         cout << "Roll : " << roll_number << endl;
+        cout<<"Student's Total Mark from All Courses : "<<Student_Total_Marks<<endl;
         cout << endl;
         cout << endl;
         cout << endl;
 
         for (int i = 0; i < no_of_subject; i++) {
-            course[i].print_marks();
+           course[i].print_marks();
         }
     }
 
@@ -116,11 +120,11 @@ public:
 int main() {
     Student *s;
     s = new Student();
-    cout<<"Deleting All References"<<endl;
+//     cout << "Deleting All References" << endl;
     free(s);
     s = nullptr;
 
-    cout<<"Freed"<<endl;
+//     cout << "Freed" << endl;
 
 }
 
