@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//Student Class
+//This is a class to store Subject Information
 class Subject {
 public:
     string subject_name;
@@ -27,6 +27,7 @@ public:
         cin >> no_of_quiz;
 
         for (int i = 0; i < no_of_quiz; i++) {
+            cout<<"Mark for "<<subject_name<<" Quiz "<<i+1<<" : ";
             cin >> quiz_mark;
             quiz_marks.push_back(quiz_mark);
             final_marks += quiz_mark;
@@ -54,60 +55,85 @@ public:
 
 
 class Student {
-
-
-    //Member
-private :
-    double Student_Total_Marks ;
+    // Conatins:
+    //Student Name
+    // Roll Number
+    //Subject Name
+public:
     string student_name;
     int roll_number;
-    double final_marks;
-    int no_of_subject;
-    Subject *course;
 
-
-public :
-    //Constructor
-    Student() {
-        //This funciton will take input of Student's Name and Roll Number Only
-        Student_Total_Marks = 0;
-        user_basic_info();
-    }
 
 public:
-
-    void user_basic_info() {
-
+    void set_student_name() {
         printf("Enter Student Name :\n");
         getline(cin, student_name);
+
+    }
+
+    void set_student_roll() {
         printf("Enter Student Roll Number :\n");
         cin >> roll_number;
 
-        printf("Enter the Number of Subject: \n");
+    }
 
+    string get_student_name() {
+        return student_name;
+
+    }
+
+    int get_student_roll() {
+        return roll_number;
+    }
+
+
+};
+
+
+//Inherited from Student Class
+class StudentDemo : public Student {
+    Subject *course;
+    double Student_Total_Marks;
+    int no_of_subject;
+
+//Constructor
+public:
+    StudentDemo() {
+        Student_Total_Marks = 0;
+        no_of_subject = 0;
+        course = nullptr;
+
+        //Inherited Methods from Student Class
+        set_student_name();
+        set_student_roll();
+
+
+        get_subject_info();
+    };
+
+    void get_subject_info() {
+        printf("Enter the Number of Subject: \n");
 
         cin >> no_of_subject;
         course = new Subject[no_of_subject];
 
-
         for (int i = 0; i < no_of_subject; i++) {
-            Student_Total_Marks+=course[i].subject_info();
+            Student_Total_Marks += course[i].subject_info();
         }
+
         printAll();
-
-
     }
 
     void printAll() {
-        cout << "Student Name : " << student_name << endl;
-        cout << "Roll : " << roll_number << endl;
-        cout<<"Student's Total Mark from All Courses : "<<Student_Total_Marks<<endl;
+        cout << "Student Name : " << get_student_name() << endl;
+        cout << "Roll : " << get_student_roll() << endl;
+        cout << "Student's Total Mark from All Courses : " << Student_Total_Marks << endl;
         cout << endl;
         cout << endl;
         cout << endl;
 
         for (int i = 0; i < no_of_subject; i++) {
-           course[i].print_marks();
+            course[i].print_marks();
         }
     }
 
@@ -117,12 +143,10 @@ public:
 
 };
 
+
 int main() {
-    Student *s;
-    s = new Student();
-//     cout << "Deleting All References" << endl;
-    free(s);
-    s = nullptr;
+    StudentDemo *Akif = new StudentDemo();
+
 
 //     cout << "Freed" << endl;
 
